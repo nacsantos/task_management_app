@@ -57,21 +57,21 @@ router.post("/", (req, res) => {
   );
 });
 
-// Update task
+// Update a task by ID
 router.put("/:id", (req, res) => {
   const { id } = req.params;
   const { title, description, status } = req.body;
-  db.run(
-    "UPDATE tasks SET title = ?, description = ?, status = ? WHERE id = ?",
-    [title, description, status, id],
-    function (err) {
-      if (err) {
-        res.status(500).json({ error: err.message });
-        return;
-      }
-      res.json({ message: `Task with ID ${id} updated successfully.` });
+
+  const sql = `UPDATE tasks SET title = ?, description = ?, status = ? WHERE id = ?`;
+  const params = [title, description, status, id];
+
+  db.run(sql, params, function (err) {
+    if (err) {
+      res.status(400).json({ error: err.message });
+      return;
     }
-  );
+    res.json({ message: "Task updated", changes: this.changes });
+  });
 });
 
 // Delete task

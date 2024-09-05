@@ -19,7 +19,7 @@
       <button class="btn btn-primary mt-4" data-toggle="modal" data-target="#taskModal">Add Task</button>
     </div>
 
-    <!-- Task Modal -->
+    <!-- Task Modal (for both Add and Edit) -->
     <div class="modal fade" id="taskModal" tabindex="-1" aria-labelledby="taskModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -31,6 +31,8 @@
           </div>
           <div class="modal-body">
             <form id="task-form" onsubmit="event.preventDefault(); addTask();">
+              <input type="hidden" id="task-id" />
+              <!-- Hidden input for task ID (used for editing) -->
               <div class="form-group">
                 <label for="task-title">Title</label>
                 <input type="text" class="form-control" id="task-title" required />
