@@ -11,13 +11,13 @@ db.run(`
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     title TEXT,
     description TEXT,
-    status TEXT
+    status TEXT,
+    date TEXT
   )
 `);
 
 // Get all tasks
 router.get("/", (req, res) => {
-  console.log("Entered in get all tasks");
   db.all("SELECT * FROM tasks", [], (err, rows) => {
     if (err) {
       res.status(500).json({ error: err.message });
@@ -39,38 +39,31 @@ router.get("/:id", (req, res) => {
   });
 });
 
-// Create new task
+// Create a new task
 router.post("/", (req, res) => {
-  console.log("Entered in new task");
-  const { title, description, status } = req.body;
-  console.log(req.body);
-  db.run(
-    "INSERT INTO tasks (title, description, status) VALUES (?, ?, ?)",
-    [title, description, status],
-    function (err) {
-      if (err) {
-        res.status(500).json({ error: err.message });
-        return;
-      }
-      res.json({ task: { id: this.lastID, title, description, status } });
-    }
-  );
-});
-
-// Update a task by ID
-router.put("/:id", (req, res) => {
-  const { id } = req.params;
-  const { title, description, status } = req.body;
-
-  const sql = `UPDATE tasks SET title = ?, description = ?, status = ? WHERE id = ?`;
-  const params = [title, description, status, id];
-
-  db.run(sql, params, function (err) {
+  const { title, description, status, date } = req.body;
+  const sql = "INSERT INTO tasks (title, description, status, date) VALUES (?, ?, ?, ?)";
+  db.run(sql, [title, description, status, date], function (err) {
     if (err) {
-      res.status(400).json({ error: err.message });
+      res.status(500).json({ error: err.message });
       return;
     }
-    res.json({ message: "Task updated", changes: this.changes });
+    res.status(201).json({ id: this.lastID });
+  });
+});
+
+// Update a task
+router.put("/:id", (req, res) => {
+  const { title, description, status, date } = req.body;
+  console.log(req.params.id, title, description, status, date);
+  const sql = "UPDATE tasks SET title = ?, description = ?, status = ?, date = ? WHERE id = ?";
+  db.run(sql, [title, description, status, date, req.params.id], function (err) {
+    if (err) {
+      console.log(err);
+      res.status(500).json({ error: err.message });
+      return;
+    }
+    res.status(200).json({ changes: this.changes });
   });
 });
 

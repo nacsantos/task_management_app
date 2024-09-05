@@ -21,7 +21,6 @@ async function fetchTasks() {
   }
 }
 
-// Function to display tasks in the HTML
 function displayTasks(tasks) {
   const taskList = document.getElementById("task-list");
   taskList.innerHTML = ""; // Clear the list
@@ -32,24 +31,24 @@ function displayTasks(tasks) {
     taskItem.innerHTML = `
       <strong>${task.title}</strong> - ${task.description}
       <span class="badge badge-${task.status === "completed" ? "success" : "warning"}">${task.status}</span>
-      <button class="btn btn-info btn-sm float-right mr-2" onclick="openEditModal(${task.id}, '${task.title}', '${
-      task.description
-    }', '${task.status}')">Edit</button>
-      <button class="btn btn-danger btn-sm float-right mr-2" onclick="deleteTask(${task.id})">Delete</button>
+      <span class="badge badge-info mr-2">${new Date(task.date).toLocaleDateString()}</span>
+      <div class="btn-group btn-group-sm float-right">
+        <button class="btn btn-info" onclick="openEditModal(${task.id}, '${task.title}', '${task.description}', '${
+      task.status
+    }', '${task.date}')">Editar</button>
+        <button class="btn btn-danger" onclick="deleteTask(${task.id})">Apagar</button>
+      </div>
     `;
     taskList.appendChild(taskItem);
   });
 }
 
-// Function to open the modal and populate it with the task's data for editing
-function openEditModal(id, title, description, status) {
-  // Set task ID as a hidden field or as a global variable
-  document.getElementById("task-id").value = id; // Assuming you add a hidden field for task id
-
-  // Populate form fields with current task data
+function openEditModal(id, title, description, status, date) {
+  document.getElementById("task-id").value = id; // Set the hidden task ID
   document.getElementById("task-title").value = title;
   document.getElementById("task-desc").value = description;
   document.getElementById("task-status").value = status;
+  document.getElementById("task-date").value = date;
 
   // Change the form submit action to edit mode
   document.getElementById("task-form").onsubmit = function (event) {
@@ -66,8 +65,9 @@ async function addTask() {
   const title = document.getElementById("task-title").value;
   const description = document.getElementById("task-desc").value;
   const status = document.getElementById("task-status").value;
+  const date = document.getElementById("task-date").value;
 
-  if (!title || !description) {
+  if (!title || !description || !date) {
     alert("Please fill in all fields.");
     return;
   }
@@ -75,7 +75,8 @@ async function addTask() {
   const newTask = {
     title: title,
     description: description,
-    status: status, // Capturing the status as well
+    status: status,
+    date: date,
   };
 
   try {
@@ -93,9 +94,7 @@ async function addTask() {
 
     document.getElementById("task-form").reset(); // Clear the form
     fetchTasks(); // Refresh the task list
-
-    // Close the modal after the task is added
-    $("#taskModal").modal("hide");
+    $("#taskModal").modal("hide"); // Close the modal
   } catch (error) {
     console.error("Failed to add task:", error);
   }
@@ -119,12 +118,54 @@ async function deleteTask(id) {
 }
 
 // Function to update an existing task
+// async function updateTask(id) {
+//   const title = document.getElementById("task-title").value;
+//   const description = document.getElementById("task-desc").value;
+//   const status = document.getElementById("task-status").value;
+
+//   if (!title || !description) {
+//     alert("Please fill in all fields.");
+//     return;
+//   }
+
+//   const updatedTask = {
+//     title: title,
+//     description: description,
+//     status: status,
+//   };
+
+//   try {
+//     const response = await fetch(`http://localhost:3001/api/tasks/${id}`, {
+//       method: "PUT",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify(updatedTask),
+//     });
+
+//     if (!response.ok) {
+//       throw new Error("Failed to update task.");
+//     }
+
+//     document.getElementById("task-form").reset(); // Clear the form
+//     fetchTasks(); // Refresh the task list
+
+//     // Close the modal after the task is updated
+//     $("#taskModal").modal("hide");
+//   } catch (error) {
+//     console.error("Failed to update task:", error);
+//   }
+// }
+
+// Function to update an existing task
 async function updateTask(id) {
   const title = document.getElementById("task-title").value;
   const description = document.getElementById("task-desc").value;
   const status = document.getElementById("task-status").value;
+  const date = document.getElementById("task-date").value;
+  console.log(id, title, description, status, date);
 
-  if (!title || !description) {
+  if (!title || !description || !date) {
     alert("Please fill in all fields.");
     return;
   }
@@ -133,6 +174,7 @@ async function updateTask(id) {
     title: title,
     description: description,
     status: status,
+    date: date,
   };
 
   try {
@@ -150,9 +192,7 @@ async function updateTask(id) {
 
     document.getElementById("task-form").reset(); // Clear the form
     fetchTasks(); // Refresh the task list
-
-    // Close the modal after the task is updated
-    $("#taskModal").modal("hide");
+    $("#taskModal").modal("hide"); // Close the modal
   } catch (error) {
     console.error("Failed to update task:", error);
   }
