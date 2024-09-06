@@ -4,26 +4,19 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Task Management</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
-    <style>
-      .btn-group-sm > .btn {
-        padding: 0.25rem 0.5rem; /* Adjust padding to make buttons look consistent */
-        font-size: 0.875rem; /* Adjust font size */
-        line-height: 1.25; /* Adjust line height */
-      }
-    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/styles.css" />
   </head>
   <body>
     <div class="container mt-5">
-      <h1 class="text-center">Task Management</h1>
+      <h1 class="text-center title">Task Management</h1>
 
       <!-- Task List -->
       <h4>Tasks</h4>
       <ul id="task-list" class="list-group">
         <!-- Tasks will be inserted here -->
       </ul>
-
-      <button class="btn btn-primary mt-4" data-toggle="modal" data-target="#taskModal">Add Task</button>
+      <button class="btn btn-primary mt-4" data-bs-toggle="modal" data-bs-target="#taskModal">Adicionar tarefa</button>
     </div>
 
     <!-- Task Modal (for both Add and Edit) -->
@@ -31,10 +24,8 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="taskModalLabel">Add Task</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
+            <h5 class="modal-title" id="taskModalLabel">Adicionar Tarefa</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
             <form id="task-form" onsubmit="event.preventDefault(); addTask();">
@@ -59,16 +50,14 @@
                 <label for="task-date">Date</label>
                 <input type="date" class="form-control" id="task-date" required />
               </div>
-              <button type="submit" class="btn btn-primary">Save Task</button>
+              <button type="submit" class="btn btn-primary">Guardar tarefa</button>
             </form>
           </div>
         </div>
       </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/main.js"></script>
   </body>
 </html>

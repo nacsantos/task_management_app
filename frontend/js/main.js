@@ -30,8 +30,10 @@ function displayTasks(tasks) {
     taskItem.className = "list-group-item";
     taskItem.innerHTML = `
       <strong>${task.title}</strong> - ${task.description}
-      <span class="badge badge-${task.status === "completed" ? "success" : "warning"}">${task.status}</span>
-      <span class="badge badge-info mr-2">${new Date(task.date).toLocaleDateString()}</span>
+      <span class="task-details">
+        <span class="badge bg-${task.status === "completed" ? "success" : "warning"}">${task.status}</span>
+        <span class="badge bg-info mr-2">${new Date(task.date).toLocaleDateString()}</span>
+      </span>
       <div class="btn-group btn-group-sm float-right">
         <button class="btn btn-info" onclick="openEditModal(${task.id}, '${task.title}', '${task.description}', '${
       task.status
@@ -56,8 +58,9 @@ function openEditModal(id, title, description, status, date) {
     updateTask(id);
   };
 
-  // Open the modal
-  $("#taskModal").modal("show");
+  // Open the modal using Bootstrap 5 API
+  const taskModal = new bootstrap.Modal(document.getElementById("taskModal"));
+  taskModal.show();
 }
 
 // Function to add a new task
@@ -94,7 +97,8 @@ async function addTask() {
 
     document.getElementById("task-form").reset(); // Clear the form
     fetchTasks(); // Refresh the task list
-    $("#taskModal").modal("hide"); // Close the modal
+    const taskModal = bootstrap.Modal.getInstance(document.getElementById("taskModal"));
+    taskModal.hide(); // Close the modal
   } catch (error) {
     console.error("Failed to add task:", error);
   }
@@ -116,46 +120,6 @@ async function deleteTask(id) {
     console.error("Failed to delete task:", error);
   }
 }
-
-// Function to update an existing task
-// async function updateTask(id) {
-//   const title = document.getElementById("task-title").value;
-//   const description = document.getElementById("task-desc").value;
-//   const status = document.getElementById("task-status").value;
-
-//   if (!title || !description) {
-//     alert("Please fill in all fields.");
-//     return;
-//   }
-
-//   const updatedTask = {
-//     title: title,
-//     description: description,
-//     status: status,
-//   };
-
-//   try {
-//     const response = await fetch(`http://localhost:3001/api/tasks/${id}`, {
-//       method: "PUT",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify(updatedTask),
-//     });
-
-//     if (!response.ok) {
-//       throw new Error("Failed to update task.");
-//     }
-
-//     document.getElementById("task-form").reset(); // Clear the form
-//     fetchTasks(); // Refresh the task list
-
-//     // Close the modal after the task is updated
-//     $("#taskModal").modal("hide");
-//   } catch (error) {
-//     console.error("Failed to update task:", error);
-//   }
-// }
 
 // Function to update an existing task
 async function updateTask(id) {
@@ -192,7 +156,8 @@ async function updateTask(id) {
 
     document.getElementById("task-form").reset(); // Clear the form
     fetchTasks(); // Refresh the task list
-    $("#taskModal").modal("hide"); // Close the modal
+    const taskModal = bootstrap.Modal.getInstance(document.getElementById("taskModal"));
+    taskModal.hide(); // Close the modal
   } catch (error) {
     console.error("Failed to update task:", error);
   }
