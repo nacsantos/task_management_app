@@ -22,8 +22,10 @@ async function fetchTasks() {
 }
 
 function displayTasks(tasks) {
-  const taskList = document.getElementById("task-list");
-  taskList.innerHTML = ""; // Clear the list
+  const pendingTaskList = document.getElementById("pending-task-list");
+  const completedTaskList = document.getElementById("completed-task-list");
+  pendingTaskList.innerHTML = ""; // Clear the pending list
+  completedTaskList.innerHTML = ""; // Clear the completed list
 
   tasks.forEach((task) => {
     const taskItem = document.createElement("li");
@@ -41,7 +43,13 @@ function displayTasks(tasks) {
         <button class="btn btn-danger" onclick="deleteTask(${task.id})">Apagar</button>
       </div>
     `;
-    taskList.appendChild(taskItem);
+
+    // Append task to the appropriate list based on its status
+    if (task.status === "pending") {
+      pendingTaskList.appendChild(taskItem);
+    } else if (task.status === "completed") {
+      completedTaskList.appendChild(taskItem);
+    }
   });
 }
 
@@ -127,7 +135,6 @@ async function updateTask(id) {
   const description = document.getElementById("task-desc").value;
   const status = document.getElementById("task-status").value;
   const date = document.getElementById("task-date").value;
-  console.log(id, title, description, status, date);
 
   if (!title || !description || !date) {
     alert("Please fill in all fields.");
