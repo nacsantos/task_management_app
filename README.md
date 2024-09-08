@@ -88,7 +88,7 @@ Siga os passos abaixo para configurar e executar o projeto:
 
 4. **Abrir o front-end**: Navegue até a pasta `frontend` e abra o ficheiro `index.html` no **browser** ou via **VSCode** com a extensão `Live Server`.
 
-5. **Visualizar a BD**: Para inspecionar os dados diretamente, abra o ficheiro `database.sqlite` utilizando o **SQLite**. Esta ferramenta permite visualizar as tabelas, realizar consultas SQL e ver os dados das tarefas.
+5. **Visualizar a BD**: Para inspecionar os dados diretamente, abra o ficheiro `database.sqlite` utilizando o **[SQLite](https://www.sqlite.org/)**. Esta ferramenta permite visualizar as tabelas, realizar consultas SQL e ver os dados das tarefas.
 
 6. **Testar a aplicação**: A aplicação deverá exibir as tarefas existentes e permitir adicionar, editar e eliminar tarefas diretamente na interface.
 
@@ -96,33 +96,33 @@ Siga os passos abaixo para configurar e executar o projeto:
 
 ### Back-end: API RESTful com Node.js e Express.js
 
-O back-end foi construído utilizando **Node.js**, uma plataforma baseada em JavaScript, e a framework **Express.js**, que facilita a criação de servidores web e APIs RESTful. Esta camada é responsável pela lógica do servidor, tratamento de pedidos HTTP e comunicação com a BD **SQLite**.
+O back-end foi construído utilizando **[Node.js](https://nodejs.org/)**, uma plataforma baseada em JavaScript, e a framework **[Express.js](https://expressjs.com/)**, que facilita a criação de servidores web e APIs RESTful. Esta camada é responsável pela lógica do servidor, tratamento de pedidos HTTP e comunicação com a BD **[SQLite](https://www.sqlite.org/)**.
 
 #### Estrutura do back-end
 
-- `app.js`: Ficheiro principal do back-end, onde o servidor **Express.js** é configurado. Nele são definidas as rotas da API e estabelecida a conexão com a BD **SQLite**. Também permite o uso de **CORS** para que o front-end possa comunicar-se com o back-end.
+- `app.js`: Ficheiro principal do back-end, onde o servidor **[Express.js](https://expressjs.com/)** é configurado. Nele são definidas as rotas da API e estabelecida a conexão com a BD **[SQLite](https://www.sqlite.org/)**. Também permite o uso de **CORS** para que o front-end possa comunicar-se com o back-end.
 - `routes/tasks.js`: Define as rotas relacionadas às operações CRUD (_Create, Read, Update and Delete_) das tarefas. Cada rota é associada a um método HTTP, como `GET`, `POST`, `PUT`, e `DELETE`, para manipular as tarefas armazenadas na BD.
 
-- `database.sqlite`: Este ficheiro contém os dados persistidos da aplicação. A BD **SQLite** é utilizada pela simplicidade de configuração e por ser uma solução leve, ideal para projetos de pequena escala.
+- `database.sqlite`: Este ficheiro contém os dados persistidos da aplicação. A BD **[SQLite](https://www.sqlite.org/)** é utilizada pela simplicidade de configuração e por ser uma solução leve, ideal para projetos de pequena escala.
 
 #### Rotas da API
 
 A API RESTful é composta pelas seguintes rotas principais:
 
-- `GET /api/tasks`: Retorna todas as tarefas registradas na BD.
+- `GET /api/tasks`: Retorna todas as tarefas registadas na BD.
 - `POST /api/tasks`: Cria uma nova tarefa. O título, descrição, status da tarefa e data são enviados no body do request.
 - `PUT /api/tasks/:id`: Atualiza uma tarefa existente, identificada pelo `id`.
 - `DELETE /api/tasks/:id`: Remove uma tarefa da BD.
 
-Cada uma destas rotas faz uma operação correspondente na BD, utilizando consultas SQL através da biblioteca **sqlite3**.
+Cada uma destas rotas faz uma operação correspondente na BD, utilizando consultas SQL através da biblioteca **[sqlite3](https://www.npmjs.com/package/sqlite3)**.
 
 ### Front-end: Interface com HTML, CSS e JavaScript
 
-O front-end foi desenvolvido em **HTML**, com os estilos feitos utilizando a biblioteca **Bootstrap**, e a lógica de interação com o servidor foi construída com JavaScript puro, sem a utilização de frameworks como **React** ou **Vue.js**. Este permite ao utilizador final interagir de forma visual e dinâmica com o sistema.
+O front-end foi desenvolvido em **[HTML](https://developer.mozilla.org/en-US/docs/Web/HTML)**, **[CSS](https://developer.mozilla.org/en-US/docs/Web/CSS)**, utilizando a biblioteca **[Bootstrap](https://getbootstrap.com/)** para aplicação de estilos, e a lógica de interação com o servidor foi construída com JavaScript puro, sem a utilização de frameworks como **[React](https://react.dev/)** ou **[Vue.js](https://vuejs.org/)**. Este permite ao utilizador final interagir de forma visual e dinâmica com o sistema.
 
 #### Estrutura do front-end
 
-- `index.html`: O ficheiro principal do front-end que define a estrutura básica da página, incluindo o formulário para adicionar tarefas e a lista de tarefas. O **Bootstrap** é utilizado para garantir uma apresentação clara e responsiva.
+- `index.html`: O ficheiro principal do front-end que define a estrutura básica da página, incluindo o formulário para adicionar tarefas e a lista de tarefas. O **[Bootstrap](https://getbootstrap.com/)** é utilizado para garantir uma apresentação clara e responsiva.
 - `main.js`: Ficheiro JavaScript onde reside a lógica do front-end. Ele contém as funções para enviar pedidos HTTP ao back-end utilizando o método `fetch()` e processar as respostas. Este ficheiro é responsável por atualizar a interface dinamicamente, adicionar novas tarefas, e eliminar ou editar as existentes.
 - `styles.css`: Opcionalmente, pode conter estilos personalizados para o layout da página.
 
@@ -144,10 +144,10 @@ No `main.js`, várias funções JavaScript foram implementadas para realizar as 
 
 Este projeto de Gestão de Tarefas demonstra como construir uma aplicação **full-stack** simples, mas funcional, utilizando tecnologias amplamente usadas.
 
-No back-end, o **Node.js** em conjunto com a framework **Express.js** permite criar rapidamente uma **API RESTful** escalável, enquanto o **SQLite** proporciona uma base de dados leve e fácil de configurar para armazenar os dados. O back-end também oferece flexibilidade para expandir e adicionar funcionalidades conforme as necessidades do projeto cresçam.
+No back-end, o **[Node.js](https://nodejs.org/)** em conjunto com a framework **[Express.js](https://expressjs.com/)** permite criar rapidamente uma **API RESTful** escalável, enquanto o **[SQLite](https://www.sqlite.org/)** proporciona uma base de dados leve e fácil de configurar para armazenar os dados. O back-end também oferece flexibilidade para expandir e adicionar funcionalidades conforme as necessidades do projeto cresçam.
 
-No front-end, a interface é simples e eficiente, construída com **HTML**, **Bootstrap** e **JavaScript**. O uso do `fetch()` para fazer pedidos assíncronos ao servidor e manipular as respostas permite uma experiência de utilizador fluida, com operações em tempo real, como adicionar, atualizar ou eliminar tarefas sem a necessidade de recarregar a página.
+No front-end, a interface é simples e eficiente, construída com **[HTML](https://developer.mozilla.org/en-US/docs/Web/HTML)**, **[CSS](https://developer.mozilla.org/en-US/docs/Web/CSS)**, **[Bootstrap](https://getbootstrap.com/)** e **JavaScript**. O uso do `fetch()` para fazer pedidos assíncronos ao servidor e manipular as respostas permite uma experiência de utilizador fluida, com operações em tempo real, como adicionar, atualizar ou eliminar tarefas sem a necessidade de recarregar a página.
 
 O projeto pode ser facilmente expandido, tanto no front-end como no back-end. Por exemplo, pode-se adicionar autenticação de utilizadores, filtros de pesquisa de tarefas ou até implementar um sistema de notificação para lembrar os utilizadores sobre prazos de tarefas.
 
-Ao integrar o **Node.js** com **JavaScript** no front-end, este projeto ilustra como estas duas tecnologias podem ser combinadas para criar uma aplicação web eficiente e moderna.
+Ao integrar o **[Node.js](https://nodejs.org/)** com **JavaScript** no front-end, este projeto ilustra como estas duas tecnologias podem ser combinadas para criar uma aplicação web eficiente e moderna.
