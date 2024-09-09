@@ -1,3 +1,7 @@
+html,
+body {
+  height: 100%;
+}
 .task-info {
   display: flex;
   gap: 10px; /* Adds some space between the status and date badges */
