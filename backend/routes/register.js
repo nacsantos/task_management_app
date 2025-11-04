@@ -11,8 +11,6 @@ const db = new sqlite3.Database("./db/database.sqlite");
 // Register route
 router.post("/", async (req, res) => {
   const { username, password } = req.body;
-  console.log(username, password);
-
   // Check if the username already exists
   db.get("SELECT * FROM users WHERE username = ?", [username], async (err, row) => {
     if (err) {
@@ -27,7 +25,6 @@ router.post("/", async (req, res) => {
 
     // Hash the password
     const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
-    console.log(hashedPassword);
 
     // Insert the new user into the database
     db.run("INSERT INTO users (username, password) VALUES (?, ?)", [username, hashedPassword], function (err) {

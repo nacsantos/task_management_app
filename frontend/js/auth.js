@@ -15,7 +15,6 @@ async function loginUser() {
 
     if (response.ok) {
       // Login successful
-      console.log("Login successful:", data);
       localStorage.setItem("token", data.token);
       localStorage.setItem("username", username); // Save username for display
       document.getElementById("task-app-container").style.display = "block";

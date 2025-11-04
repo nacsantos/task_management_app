@@ -2,7 +2,6 @@
 
 async function fetchTasks() {
   const token = localStorage.getItem("token");
-  console.log("After login I will fetch tasks.", token);
 
   try {
     const response = await fetch("http://localhost:3001/api/tasks", {
@@ -13,10 +12,8 @@ async function fetchTasks() {
     });
 
     const data = await response.json();
-    console.log(data);
 
     if (response.ok) {
-      console.log("I will display tasks");
       displayTasks(data.tasks); // Update the task list dynamically
     } else {
       console.error("Failed to fetch tasks:", data.message);
