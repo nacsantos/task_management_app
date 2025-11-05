@@ -90,17 +90,21 @@ router.put("/:id", authenticateToken, (req, res) => {
   const { id } = req.params;
   const userId = req.user.userId; // Get the user ID from the token
 
-  const sql = "UPDATE tasks SET title = ?, description = ?, status = ?, date = ? WHERE id = ? AND user_id = ?";
-  db.run(sql, [title, description, status, date, id, userId], function (err) {
-    if (err) {
-      res.status(500).json({ error: err.message });
-      return;
-    }
-    if (this.changes === 0) {
-      return res.status(404).json({ message: "Task not found or you don't have access to it" });
-    }
-    res.status(200).json({ changes: this.changes });
-  });
+  // TODO: Define the SQL query to update a task with new values (title, description, status, date).
+  //       - The update should only occur if the task ID and user ID match.
+
+  // TODO: Execute the SQL query using db.run() with the appropriate parameters:
+  //       [title, description, status, date, id, userId].
+
+  // TODO: If an error occurs during the query execution:
+  //       - Respond with HTTP 500 and include the error message in JSON format.
+
+  // TODO: If no rows are updated (this.changes === 0):
+  //       - Respond with HTTP 404 and a message indicating that the task was not found
+  //         or that the user does not have access to it.
+
+  // TODO: If the update is successful:
+  //       - Respond with HTTP 200 and include the number of changes made in JSON format.
 });
 
 // Delete task for the authenticated user (protected route)
@@ -108,16 +112,18 @@ router.delete("/:id", authenticateToken, (req, res) => {
   const { id } = req.params;
   const userId = req.user.userId; // Get the user ID from the token
 
-  db.run("DELETE FROM tasks WHERE id = ? AND user_id = ?", [id, userId], function (err) {
-    if (err) {
-      res.status(500).json({ error: err.message });
-      return;
-    }
-    if (this.changes === 0) {
-      return res.status(404).json({ message: "Task not found or you don't have access to it" });
-    }
-    res.json({ message: `Task with ID ${id} deleted successfully.` });
-  });
+  // TODO: Execute a SQL DELETE query to remove a task matching the given ID and user ID.
+  //       - Use db.run() with parameters [id, userId].
+
+  // TODO: If an error occurs during the query execution:
+  //       - Respond with HTTP 500 and include the error message in JSON format.
+
+  // TODO: If no rows are affected (this.changes === 0):
+  //       - Respond with HTTP 404 and a message indicating that the task was not found
+  //         or that the user does not have permission to delete it.
+
+  // TODO: If the deletion is successful:
+  //       - Respond with a success message including the deleted task ID.
 });
 
 module.exports = router;

@@ -126,65 +126,27 @@ async function addTask() {
 
 // Function to delete a task
 async function deleteTask(id) {
-  const token = localStorage.getItem("token");
-
-  try {
-    const response = await fetch(`http://localhost:3001/api/tasks/${id}`, {
-      method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
-    if (!response.ok) {
-      throw new Error("Network response was not ok.");
-    }
-
-    fetchTasks(); // Refresh the task list
-  } catch (error) {
-    console.error("Failed to delete task:", error);
-  }
+  // TODO: Retrieve the token from localStorage.
+  // TODO: Send a DELETE request to `http://localhost:3001/api/tasks/${id}`.
+  //       - Include the Authorization header with the Bearer token.
+  // TODO: Check if the response is successful.
+  // TODO: If successful, refresh the task list (e.g., call fetchTasks()).
+  // TODO: Handle and log any errors that occur during the request.
 }
 
 // Function to update an existing task
 async function updateTask(id) {
-  const token = localStorage.getItem("token");
-  const title = document.getElementById("task-title").value;
-  const description = document.getElementById("task-desc").value;
-  const status = document.getElementById("task-status").value;
-  const date = document.getElementById("task-date").value;
-
-  if (!title || !description || !date) {
-    alert("Please fill in all fields.");
-    return;
-  }
-
-  const updatedTask = {
-    title: title,
-    description: description,
-    status: status,
-    date: date,
-  };
-
-  try {
-    const response = await fetch(`http://localhost:3001/api/tasks/${id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(updatedTask),
-    });
-
-    if (!response.ok) {
-      throw new Error("Failed to update task.");
-    }
-
-    document.getElementById("task-form").reset(); // Clear the form
-    fetchTasks(); // Refresh the task list
-    const taskModal = bootstrap.Modal.getInstance(document.getElementById("taskModal"));
-    taskModal.hide(); // Close the modal
-  } catch (error) {
-    console.error("Failed to update task:", error);
-  }
+  // TODO: Retrieve the token from localStorage.
+  // TODO: Get the task details (title, description, status, date) from form fields.
+  // TODO: Validate that all required fields are filled in.
+  // TODO: Create an object containing the updated task data.
+  // TODO: Send a PUT request to `http://localhost:3001/api/tasks/${id}`.
+  //       - Include the Content-Type and Authorization headers.
+  //       - Include the updated task data in the request body as JSON.
+  // TODO: Check if the response is successful.
+  // TODO: If successful:
+  //       - Clear the form.
+  //       - Refresh the task list.
+  //       - Close the modal window.
+  // TODO: Handle and log any errors that occur during the request.
 }
